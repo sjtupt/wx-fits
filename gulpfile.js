@@ -64,10 +64,8 @@ gulp.task('lint', () => {
  */
 gulp.task('compile:js', () => {
   return gulp.src(['src/**/*.js'])
-    .pipe(plugins.if(!isProduction, plugins.sourcemaps.init()))
     .pipe(plugins.babel())
     .pipe(plugins.if(isProduction, plugins.uglify()))
-    .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
 })
 
@@ -76,7 +74,6 @@ gulp.task('compile:js', () => {
  */
 gulp.task('compile:xml', () => {
   return gulp.src(['src/**/*.{xml,wxml}'])
-    .pipe(plugins.if(!isProduction, plugins.sourcemaps.init()))
     .pipe(plugins.if(isProduction, plugins.htmlmin({
       collapseWhitespace: true,
       // collapseBooleanAttributes: true,
@@ -88,7 +85,6 @@ gulp.task('compile:xml', () => {
       removeStyleLinkTypeAttributes: true
     })))
     .pipe(plugins.rename({ extname: '.wxml' }))
-    .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
 })
 
@@ -97,18 +93,14 @@ gulp.task('compile:xml', () => {
  */
 gulp.task('compile:less', () => {
   return gulp.src(['src/**/*.less'])
-    .pipe(plugins.if(!isProduction, plugins.sourcemaps.init()))
     .pipe(plugins.less())
     .pipe(plugins.if(isProduction, plugins.cssnano({ compatibility: '*' })))
     .pipe(plugins.rename({ extname: '.wxss' }))
-    .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
 })
 
 gulp.task('compile:wxss', () => {
   return gulp.src(['src/**/*.wxss'])
-    .pipe(plugins.if(!isProduction, plugins.sourcemaps.init()))
-    .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
 })
 
@@ -117,9 +109,7 @@ gulp.task('compile:wxss', () => {
  */
 gulp.task('compile:json', () => {
   return gulp.src(['src/**/*.json'])
-    .pipe(plugins.if(!isProduction, plugins.sourcemaps.init()))
     .pipe(plugins.jsonminify())
-    .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest('dist'))
 })
 
@@ -128,7 +118,7 @@ gulp.task('compile:json', () => {
  */
 gulp.task('compile:img', () => {
   return gulp.src(['src/**/*.{jpg,jpeg,png,gif}'])
-    .pipe(plugins.imagemin())
+    // .pipe(plugins.imagemin())
     .pipe(gulp.dest('dist'))
 })
 
@@ -164,8 +154,8 @@ gulp.task('extras', [], () => {
 /**
  * Build
  */
-// gulp.task('build', next => runSequence('compile', 'extras', next))
-gulp.task('build', ['lint'], next => runSequence('compile', 'extras', next))
+gulp.task('build', next => runSequence('compile', 'extras', next))
+// gulp.task('build', ['lint'], next => runSequence('compile', 'extras', next))
 
 /**
  * Watch source change

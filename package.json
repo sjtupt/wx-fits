@@ -1,7 +1,7 @@
 {
-  "name": "hotel",
+  "name": "fits",
   "version": "0.1.0",
-  "description": "ffan hotel",
+  "description": "fits",
   "scripts": {
     "lint": "gulp lint",
     "watch": "gulp watch",
@@ -13,7 +13,7 @@
     "url": ""
   },
   "keywords": [
-    "hotel"
+    "fits"
   ],
   "author": "sjtupt",
   "devDependencies": {

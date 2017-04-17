@@ -1,12 +1,37 @@
 {
   "pages":[
+    "pages/home/home",
+    "pages/logs/logs",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/stat/stat",
+    "pages/record/record"
+    // 这一行很重要，勿删
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "selectedColor": "#000",
+    "color": "#ccc",
+    "list": [{
+      "pagePath": "pages/home/home",
+      "iconPath": "resource/home_more_icon.png",
+      "selectedIconPath": "resource/home_more_icon.png",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/record/record",
+      "iconPath": "resource/home_record_buttton~iphone.png",
+      "selectedIconPath": "resource/home_record_buttton~iphone.png",
+      "text": "记一记"
+    }, {
+      "pagePath": "pages/stat/stat",
+      "iconPath": "resource/btn_statistics~iphone.png",
+      "selectedIconPath": "resource/btn_statistics~iphone.png",
+      "text": "统计"
+    }]
   }
 }

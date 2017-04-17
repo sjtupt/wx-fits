@@ -1,0 +1,19 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<view class="container">
+  <view class="home-header">
+    <image class="home-header-bg" src="{{homeHeaderbg}}" mode="aspectFill"></image>
+  </view>
+
+  <scroll-view
+          scroll-y="true"
+          class="content-wrap"
+          bindscrolltoupper="upper"
+          bindscrolltolower="lower"
+          bindscroll="scroll"
+          scroll-into-view="{{toView}}"
+          scroll-top="{{scrollTop}}">
+
+    <view class="test"></view>
+  </scroll-view>
+
+</view>
