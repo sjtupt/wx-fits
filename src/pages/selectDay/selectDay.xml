@@ -1,0 +1,6 @@
+<import src="Week/week.wxml"/>
+
+<view class="container">
+    <view class="cal-header"></view>
+    <template is="weekInfo" data="{{week: week}}"/>
+</view>

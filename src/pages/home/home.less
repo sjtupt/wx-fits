@@ -1,27 +1,44 @@
 page {
   height: 100%;
 }
+
 .container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  .home-header {
-    padding-top: 53%;
-    width: 100%;
-    .home-header-bg {
-      position: fixed;
-      top: -40px;
-      width: 100%;
-    }
-  }
+  overflow: hidden;
   .content-wrap {
-    flex: 1;
-    background-color: red;
-    height: 200px;
-    .test {
-      background-color: cyan;
-      height: 500px;
+    margin-top: -10rpx;
+    .record-day {
+      background-color: #f0f0f0;
+      font-size: 12px;
+      font-style: italic;
+      padding-left: 15px;
+      height: 20px;
+      line-height: 20px;
+    }
+    .record {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      border-bottom: 1px solid #cccccc;
+      .record-time {
+        font-size: 15px;
+        color: #666;
+        padding-left: 15px;
+      }
+      .record-weight {
+        font-size: 17px;
+        color: #333;
+      }
+      .record-delta {
+        font-size: 14px;
+        font-style: italic;
+        padding-right: 15px;
+      }
+      .increase {
+        color: green;
+      }
     }
   }
 }

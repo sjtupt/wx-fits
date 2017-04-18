@@ -1,0 +1,10 @@
+/**
+ * Created by sjtupt on 2017/4/18.
+ */
+<template name="weekInfo">
+  <view class="week-info">
+    <block wx:for="{{week}}" wx:for-item="weekInfo" wx:key="*this">
+      <text class="text">{{weekInfo}}</text>
+    </block>
+  </view>
+</template>

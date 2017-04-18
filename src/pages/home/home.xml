@@ -1,19 +1,24 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <view class="home-header">
-    <image class="home-header-bg" src="{{homeHeaderbg}}" mode="aspectFill"></image>
-  </view>
+  <image style="width:{{homeHeaderBgWidth}}px;height:{{homeHeaderBgHeight}}px;" src="{{homeHeaderBg}}" mode="aspectFill"></image>
 
   <scroll-view
           scroll-y="true"
           class="content-wrap"
-          bindscrolltoupper="upper"
-          bindscrolltolower="lower"
-          bindscroll="scroll"
-          scroll-into-view="{{toView}}"
-          scroll-top="{{scrollTop}}">
+          style="height: {{contentHeight}}px"
+          >
 
-    <view class="test"></view>
+    <view wx:key="{{weightRecord.day}}" wx:for="{{weightData}}" wx:for-index="idx" wx:for-item="weightRecord">
+      <view wx:key="{{idx}}">
+        <view class="record-day">{{weightRecord.day}}</view>
+        <view class="record" wx:key="{{weightInfo.time}}" wx:for="{{weightRecord.weightInfos}}" wx:for-index="idx" wx:for-item="weightInfo">
+          <view class="record-time">{{weightInfo.time}}</view>
+          <view class="record-weight">{{weightInfo.weight}} kg</view>
+          <image hidden="true"></image>
+          <view class="record-delta increase">{{weightInfo.delta}}kg</view>
+        </view>
+      </view>
+    </view>
   </scroll-view>
 
 </view>
