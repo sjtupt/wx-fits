@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'stat'
+    title: '统计'
   },
 
   /**

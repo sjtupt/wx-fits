@@ -1,4 +1,17 @@
 <!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <text class="title">{{ title }}</text>
+  <view class="weight-wrap">
+    <text class="weight-title">体重(kg):</text>
+    <input class="weight-input" placeholder-class="weight-placeholder" placeholder="请输入体重(以公斤kg为单位)"  typ="number" auto-focus/>
+  </view>
+  <view class="weight-wrap">
+    <text class="weight-title">日期:</text>
+    <text class="time">2017-4-12</text>
+    <text class="time-info">今天</text>
+  </view>
+  <view class="weight-wrap">
+    <text class="weight-title">时间:</text>
+    <text class="time">19:45</text>
+    <text class="time-info">10分钟前</text>
+  </view>
 </view>

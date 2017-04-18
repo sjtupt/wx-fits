@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: 'record'
+    title: '记一记'
   },
 
   /**
