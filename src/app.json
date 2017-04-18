@@ -3,7 +3,6 @@
     "pages/record/record",
     "pages/logs/logs",
     "pages/home/home",
-    "pages/index/index",
     "pages/stat/stat",
     "pages/selectDay/selectDay"
     // 这一行很重要，勿删

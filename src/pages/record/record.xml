@@ -12,6 +12,7 @@
             auto-focus />
   </view>
   <view class="weight-wrap" bindtap="chooseDay">
+
     <text class="weight-title">日期:</text>
     <text class="time">2017-4-12</text>
     <text class="time-info">今天</text>
