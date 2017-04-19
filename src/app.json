@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/record/record",
     "pages/home/home",
     "pages/selectDay/selectDay",
-    "pages/record/record",
     "pages/logs/logs",
     "pages/stat/stat"
     // 这一行很重要，勿删
