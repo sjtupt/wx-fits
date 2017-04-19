@@ -1,6 +1,13 @@
 <import src="Week/week.wxml"/>
 
 <view class="container">
-    <view class="cal-header"></view>
+    <view class="cal-header">
+        <text class="cal-header-month">2017-05</text>
+    </view>
     <template is="weekInfo" data="{{week: week}}"/>
+    <view class="week" wx:key="{{week}}" wx:for="{{days}}" wx:for-index="idx" wx:for-item="week">
+        <view class="day" wx:key="{{day}}" wx:for="{{week}}" wx:for-index="idx" wx:for-item="day" bindtap="chooseDay" data-day="{{day}}">
+            <text>{{day}}</text>
+        </view>
+    </view>
 </view>

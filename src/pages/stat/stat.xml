@@ -1,4 +1,4 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
 <view class="container">
-  <text class="title">{{ title }}</text>
+  <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+  <button type="primary" bindtap="updateData">更新数据</button>
 </view>

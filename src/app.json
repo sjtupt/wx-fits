@@ -1,10 +1,10 @@
 {
   "pages":[
+    "pages/home/home",
+    "pages/selectDay/selectDay",
     "pages/record/record",
     "pages/logs/logs",
-    "pages/home/home",
-    "pages/stat/stat",
-    "pages/selectDay/selectDay"
+    "pages/stat/stat"
     // 这一行很重要，勿删
   ],
   "window":{

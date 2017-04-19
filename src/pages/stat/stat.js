@@ -1,54 +1,92 @@
 // 获取全局应用程序实例对象
 // const app = getApp()
+var wxCharts = require('../../lib/wxcharts-min');
 
-// 创建页面实例对象
+var app = getApp();
+var lineChart = null;
+
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
-    title: '统计'
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad () {
-    // TODO: onLoad
+  touchHandler: function (e) {
+    console.log(lineChart.getCurrentDataIndex(e));
+    lineChart.showToolTip(e, {
+      // background: '#7cb5ec'
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady () {
-    // TODO: onReady
+  createSimulationData: function () {
+    var categories = [];
+    var data = [];
+    for (var i = 0; i < 10; i++) {
+      categories.push('2016-' + (i + 1));
+      data.push(Math.random()*(20-10)+10);
+    }
+    // data[4] = null;
+    return {
+      categories: categories,
+      data: data
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow () {
-    // TODO: onShow
+  updateData: function () {
+    var simulationData = this.createSimulationData();
+    var series = [{
+      name: '成交量1',
+      data: simulationData.data,
+      format: function (val, name) {
+        return val.toFixed(2) + '万';
+      }
+    }];
+    lineChart.updateData({
+      categories: simulationData.categories,
+      series: series
+    });
   },
+  onLoad: function (e) {
+    var windowWidth = 320;
+    try {
+      var res = wx.getSystemInfoSync();
+      windowWidth = res.windowWidth;
+    } catch (e) {
+      console.error('getSystemInfoSync failed!');
+    }
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide () {
-    // TODO: onHide
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload () {
-    // TODO: onUnload
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh () {
-    // TODO: onPullDownRefresh
+    var simulationData = this.createSimulationData();
+    lineChart = new wxCharts({
+      canvasId: 'lineCanvas',
+      type: 'line',
+      categories: simulationData.categories,
+      animation: true,
+      background: '#f5f5f5',
+      series: [{
+        name: '成交量1',
+        data: simulationData.data,
+        format: function (val, name) {
+          return val.toFixed(2) + '万';
+        }
+      }, {
+        name: '成交量2',
+        data: [11, 24, 29, 15, null, 21, 32, 23, 45, 21],
+        format: function (val, name) {
+          return val.toFixed(2) + '万';
+        }
+      }],
+      xAxis: {
+        disableGrid: true
+      },
+      yAxis: {
+        title: '成交金额 (万元)',
+        format: function (val) {
+          return val.toFixed(2);
+        },
+        min: 0
+      },
+      width: windowWidth,
+      height: 200,
+      dataLabel: false,
+      dataPointShape: true,
+      extra: {
+        lineStyle: 'curve'
+      }
+    });
   }
-})
+});

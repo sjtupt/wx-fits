@@ -3,4 +3,32 @@
 .container {
   background-color: white;
   height: 100%;
+  .cal-header {
+    height: 40px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .cal-header-month {
+      text-align: center;
+      font-size: 15px;
+      color: #666;
+    }
+  }
+  .week {
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    .day {
+      height: 100%;
+      line-height: 44px;
+      flex: 1;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+    }
+  }
 }
