@@ -15,7 +15,8 @@ Page({
    */
   data: {
     title: '记一记',
-    recordBtnDisabled: true
+    recordBtnDisabled: true,
+    isBackFromSelectDay: false
   },
 
   bindinput(e) {
@@ -25,7 +26,7 @@ Page({
       wx.showToast({
         title: '亲，输入有误',
         icon: 'warn',
-        duration: 2000
+        duration: 1000
       })
 
       return inputString.substring(0, inputString.length-1)
@@ -45,7 +46,7 @@ Page({
 
   chooseDay() {
     wx.navigateTo({
-      url: '../selectDay/selectDay'
+      url: '../selectDay/selectDay?date='+this.data.dayShow
     })
   },
   chooseTime() {
@@ -82,7 +83,7 @@ Page({
     // this.save(e.detail.value)
   },
   bindconfirm(e){
-    this.save(e.detail.value)
+    // this.save(e.detail.value)
   },
 
   setCurrentTimeIndex(index) {
@@ -99,13 +100,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
-    this.setCurrentTimeIndex(0)
+    if (!this.data.isBackFromSelectDay) {
+      this.setCurrentTimeIndex(0)
+      this.setData({
+        recordBtnDisabled: true,
+        currentValidWeight: 0,
+        inputValue: null,
+        dayShow: util.dateFormat(new Date(), 'yyyy-MM-dd'),
+        dayDetailShow: util.relationWithToday(new Date())
+      })
+    }
+  },
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide () {
     this.setData({
-      recordBtnDisabled: true,
-      currentValidWeight: 0,
-      inputValue: null,
-      dayShow: util.dateFormat(new Date(), 'yyyy-MM-dd'),
-      dayDetailShow: util.relationWithToday(new Date())
+      isBackFromSelectDay: false
     })
-  }
+  },
 })

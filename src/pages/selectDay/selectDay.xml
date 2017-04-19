@@ -2,12 +2,20 @@
 
 <view class="container">
     <view class="cal-header">
-        <text class="cal-header-month">2017-05</text>
+        <text class="cal-header-month">{{currentDayShow}}</text>
     </view>
     <template is="weekInfo" data="{{week: week}}"/>
     <view class="week" wx:key="{{week}}" wx:for="{{days}}" wx:for-index="idx" wx:for-item="week">
-        <view class="day" wx:key="{{day}}" wx:for="{{week}}" wx:for-index="idx" wx:for-item="day" bindtap="chooseDay" data-day="{{day}}">
-            <text>{{day}}</text>
+        <view style="background-color:{{day.canSelect ? (day.isCurrentSelect ? '#5599ff': null) : '#f0f0f0'}}"
+              class="day-wrap"
+              wx:key="{{day}}"
+              wx:for="{{week}}"
+              wx:for-index="idx"
+              wx:for-item="day"
+              bindtap="chooseDay"
+              data-day="{{day}}">
+            <text class="day" style="color: {{day.isCurrentSelect ? 'white': null}}">{{day.day}}</text>
+            <text class="day-detail" style="color: {{day.isCurrentSelect ? 'white': null}}">{{day.detail}}</text>
         </view>
     </view>
 </view>

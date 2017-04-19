@@ -46,12 +46,19 @@ function dateFormat(date, format) {
 
 const oneDay = 24 * 60 * 60 * 1000
 
+function isEarlier(day1,day2) {
+  let newDay1 = new Date(day1.getFullYear(), day1.getMonth(), day1.getDate())
+  let newDay2 = new Date(day2.getFullYear(), day2.getMonth(), day2.getDate())
+
+  return newDay2.getTime() >= newDay1.getTime()
+}
+
 function relationWithToday(date) {
   let now = new Date()
   let nowWithoutHours = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   let dateWithoutHours = new Date(date.getFullYear(), date.getMonth(), date.getDate())
 
-  let timeSpan = nowWithoutHours.valueOf() < dateWithoutHours.valueOf()
+  let timeSpan = nowWithoutHours.valueOf() - dateWithoutHours.valueOf()
   if (timeSpan < 0) {
     return ''
   } else if (timeSpan == 0) {
@@ -68,8 +75,23 @@ function relationWithToday(date) {
   }
 }
 
+function isToday(day) {
+  return dateFormat((new Date(day)), 'yyyy-MM-dd') === dateFormat((new Date()), 'yyyy-MM-dd')
+}
+
+function  isSameDay(day1, day2) {
+  let newDay1 = new Date(day1.getFullYear(), day1.getMonth(), day1.getDate())
+  let newDay2 = new Date(day2.getFullYear(), day2.getMonth(), day2.getDate())
+
+  return newDay2.getTime() == newDay1.getTime()
+}
+
 module.exports = {
   formatTime: formatTime,
   dateFormat: dateFormat,
-  relationWithToday: relationWithToday
+  relationWithToday: relationWithToday,
+  oneDay: oneDay,
+  isEarlier: isEarlier,
+  isToday: isToday,
+  isSameDay: isSameDay
 }
