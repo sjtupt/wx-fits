@@ -17,13 +17,13 @@
     <input
             class="weight-input"
             placeholder-class="weight-placeholder"
-            placeholder="请输入体重(以公斤kg为单位)"
+            placeholder="请输入体重(公斤kg)"
             value="{{inputValue}}"
             type="digit"
             bindblur="bindblur"
             bindconfirm="bindconfirm"
             bindinput="bindinput"
             auto-focus />
-    <button size="mini" type="primary" plain="true" disabled="{{recordBtnDisabled}}" bindtap="save">记录</button>
+    <button size="mini" type="primary" plain="true" disabled="{{recordBtnDisabled}}" bindtap="save" class="record-btn">记录</button>
   </view>
 </view>

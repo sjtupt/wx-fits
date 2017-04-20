@@ -59,15 +59,9 @@ Page({
     })
   },
   save() {
-    // Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
-    //   console.log(res)
-    // }, err => {
-    //   console.log(err)
-    // })
-
     Storage.setLocalData(Storage.kWeightInfo)({
       weight: this.data.currentValidWeight,
-      time: Date.now()
+      time: (new Date(this.data.dayShow)).setHours(6 * (this.data.currentTimeIndex + 1))
     }).then(
       res => {
         wx.switchTab({
@@ -98,8 +92,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  getCurrentTimeIndex() {
+    return parseInt((new Date()).getHours() / 6)
+  },
   onLoad () {
-    this.setCurrentTimeIndex(0)
+    this.setCurrentTimeIndex(this.getCurrentTimeIndex())
     this.setData({
       dayShow: util.dateFormat(new Date(), 'yyyy-MM-dd'),
       dayDetailShow: util.relationWithToday(new Date())
@@ -110,7 +107,7 @@ Page({
    */
   onShow () {
     if (!this.data.isBackFromSelectDay) {
-      this.setCurrentTimeIndex(0)
+      this.setCurrentTimeIndex(this.getCurrentTimeIndex())
       this.setData({
         recordBtnDisabled: true,
         currentValidWeight: 0,
