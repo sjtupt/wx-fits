@@ -95,7 +95,16 @@ Page({
       currentTimeShow: timeNoons[index]
     })
   },
-
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad () {
+    this.setCurrentTimeIndex(0)
+    this.setData({
+      dayShow: util.dateFormat(new Date(), 'yyyy-MM-dd'),
+      dayDetailShow: util.relationWithToday(new Date())
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -106,8 +115,6 @@ Page({
         recordBtnDisabled: true,
         currentValidWeight: 0,
         inputValue: null,
-        dayShow: util.dateFormat(new Date(), 'yyyy-MM-dd'),
-        dayDetailShow: util.relationWithToday(new Date())
       })
     }
   },

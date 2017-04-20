@@ -19,7 +19,7 @@ const configDay = day => selectDay => {
   day.isCurrentSelect = util.isSameDay(day.date, selectDay)
 }
 
-const getCalendarInfos = (dateString) => {
+const getCalendarInfos = (dateString) => currentSelectDay => {
   let selectDay = new Date(dateString)
 
   let firstDayOfCurrentMonth = new Date(selectDay.getFullYear(), selectDay.getMonth(), 1)
@@ -30,17 +30,17 @@ const getCalendarInfos = (dateString) => {
   let days = []
   for (let i = firstDayOfCurrentMonth.getDay(); i > 0; i--) {
     let day = {day: lastDayOfLastMonth-i+1, date: plusDay(firstDayOfCurrentMonth)(-i)}
-    configDay(day)(selectDay)
+    configDay(day)(currentSelectDay)
     days.push(day)
   }
   for (let i = 1; i <= lastDayOfCurrentMonth.getDate(); i++) {
     let day = {day: i, date: plusDay(firstDayOfCurrentMonth)(i-1)}
-    configDay(day)(selectDay)
+    configDay(day)(currentSelectDay)
     days.push(day)
   }
   for (let i = DaysOneWeek - lastDayOfCurrentMonth.getDay(); i > 1; i--) {
     let day = {day: DaysOneWeek - lastDayOfCurrentMonth.getDay() - i + 1, date: plusDay(lastDayOfCurrentMonth)(DaysOneWeek - lastDayOfCurrentMonth.getDay() - i + 1)}
-    configDay(day)(selectDay)
+    configDay(day)(currentSelectDay)
     days.push(day)
   }
   return days
@@ -54,6 +54,23 @@ Page({
   data: {
     title: '选择日期',
     week: week
+  },
+  changeMonth(increase = false) {
+    let currentDay = this.data.currentDay
+    let day = currentDay.setMonth(currentDay.getMonth() + (increase? 1: -1), currentDay.getDate())
+    this.setData({
+      currentDay: currentDay,
+      currentDayShow: util.dateFormat(new Date(day), 'yyyy-MM'),
+      days: getCalendarInfos(day)(this.data.originSelectDay).reduce((rows, key, index) => (index % DaysOneWeek == 0 ? rows.push([key])
+        : rows[rows.length-1].push(key)) && rows, []),
+      isMaxMonth: this.isMaxMonth(currentDay)
+    })
+  },
+  preMonth() {
+    this.changeMonth()
+  },
+  nextMonth() {
+    !this.data.isMaxMonth && this.changeMonth(true)
   },
   chooseDay(e) {
     let day = e.currentTarget.dataset.day
@@ -74,16 +91,30 @@ Page({
       })
     }
   },
+  isMaxMonth(day) {
+    if (day.getFullYear() < (new Date()).getFullYear()) {
+      return false
+    } else if (day.getFullYear() == (new Date()).getFullYear()) {
+      if (day.getMonth() < (new Date()).getMonth()) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return true
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(option){
-
     this.setData({
       currentDay: new Date(option.date),
+      originSelectDay: new Date(option.date),
       currentDayShow: util.dateFormat(new Date(option.date), 'yyyy-MM'),
-      days: getCalendarInfos(option.date).reduce((rows, key, index) => (index % DaysOneWeek == 0 ? rows.push([key])
-        : rows[rows.length-1].push(key)) && rows, [])
+      days: getCalendarInfos(option.date)(new Date(option.date)).reduce((rows, key, index) => (index % DaysOneWeek == 0 ? rows.push([key])
+        : rows[rows.length-1].push(key)) && rows, []),
+      isMaxMonth: this.isMaxMonth(new Date(option.date))
     })
   }
 })

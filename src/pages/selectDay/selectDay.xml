@@ -2,7 +2,9 @@
 
 <view class="container">
     <view class="cal-header">
+        <text class="indicator" bindtap="preMonth">上个月</text>
         <text class="cal-header-month">{{currentDayShow}}</text>
+        <text class="indicator" bindtap="nextMonth" style="color: {{isMaxMonth ? '#ccc': null}}" >下个月</text>
     </view>
     <template is="weekInfo" data="{{week: week}}"/>
     <view class="week" wx:key="{{week}}" wx:for="{{days}}" wx:for-index="idx" wx:for-item="week">

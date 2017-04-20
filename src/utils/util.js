@@ -66,9 +66,9 @@ function relationWithToday(date) {
   } else {
     let days = timeSpan / oneDay
     if (days > 365) {
-      return days/365 + '年前'
+      return parseInt(days/365) + '年前'
     } else if (days > 30) {
-      return days/30 + '月前'
+      return parseInt(days/30) + '月前'
     } else {
       return days + "天前"
     }
