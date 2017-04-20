@@ -38,7 +38,7 @@ Page({
     for (let i = keys.length - 1; i > 0; i--) {
       let current = data[keys[i]]
       let pre = data[keys[i-1]]
-      buildWeightIncrease(current)(current.weight-pre.weight)
+      buildWeightIncrease(current)((current.weight-pre.weight).toFixed(1))
       result.push(current)
     }
     if (keys.length >= 1) {

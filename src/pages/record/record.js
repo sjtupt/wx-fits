@@ -40,7 +40,7 @@ Page({
     if (parseInt(inputString) > 0 && parseInt(inputString) < 150) {
       this.setData({
         recordBtnDisabled: false,
-        currentValidWeight: parseInt(inputString)
+        currentValidWeight: parseFloat(inputString).toFixed(1)
       })
     } else {
       this.setData({
