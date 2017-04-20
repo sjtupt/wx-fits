@@ -4,7 +4,12 @@ var util = require('../../utils/util.js')
 // 获取全局应用程序实例对象
 // const app = getApp()
 
-const timeNoons = [{id: 0, name: '上午', timePeriod:'03:00am - 09:00am'},{id: 1, name: '中午', timePeriod:'09:00am - 15:00pm'},{id: 2, name: '下午', timePeriod:'15:00pm - 21:00pm'},{id: 3, name: '晚上', timePeriod:'21:00pm - 03:00pm'}]
+const timeNoons = [
+  {id: 0, name: '上午', timePeriod:'03:00am - 09:00am', timeColor: '#8600FF'},
+  {id: 1, name: '中午', timePeriod:'09:00am - 15:00pm', timeColor: '#ffaa33'},
+  {id: 2, name: '下午', timePeriod:'15:00pm - 21:00pm',timeColor: '#ff3333' },
+  {id: 3, name: '晚上', timePeriod:'21:00pm - 03:00pm',timeColor: '#ffddaa'}
+]
 
 const validWeight = input => input.match(/^(\d+)(\.?)(\d*)$/g) == null ? false : true
 
@@ -61,7 +66,9 @@ Page({
   save() {
     Storage.setLocalData(Storage.kWeightInfo)({
       weight: this.data.currentValidWeight,
-      time: (new Date(this.data.dayShow)).setHours(6 * (this.data.currentTimeIndex + 1))
+      time: (new Date(this.data.dayShow)).setHours(5 * (this.data.currentTimeIndex + 1)),
+      timePeriodName: timeNoons[this.data.currentTimeIndex].name,
+      timeColor:timeNoons[this.data.currentTimeIndex].timeColor
     }).then(
       res => {
         wx.switchTab({

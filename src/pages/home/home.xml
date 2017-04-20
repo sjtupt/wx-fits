@@ -12,10 +12,13 @@
       <view wx:key="{{idx}}">
         <view class="record-day">{{weightRecord.day}}</view>
         <view class="record" wx:key="{{weightInfo.time}}" wx:for="{{weightRecord.weightInfos}}" wx:for-index="idx" wx:for-item="weightInfo">
-          <view class="record-time">{{weightInfo.time}}</view>
+          <view class="record-time" style="color: {{weightInfo.timeColor}}">{{weightInfo.timePeriodName}}</view>
           <view class="record-weight">{{weightInfo.weight}} kg</view>
-          <image hidden="true"></image>
-          <view class="record-delta increase">{{weightInfo.delta}}kg</view>
+          <view class="record-delta-wrap">
+
+            <image class="increase-icon" src="{{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? '../../resource/down.png': '../../resource/up.png')}}"></image>
+            <view class="record-delta {{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? 'decrease': 'increase')}}">{{weightInfo.delta}}</view>
+          </view>
         </view>
       </view>
     </view>
