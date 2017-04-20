@@ -31,13 +31,26 @@ page {
         font-size: 17px;
         color: #333;
       }
-      .record-delta {
-        font-size: 14px;
-        font-style: italic;
-        padding-right: 15px;
-      }
-      .increase {
-        color: green;
+      .record-delta-wrap {
+        display: flex;
+        flex-direction: row;
+        width: 50px;
+        .record-delta {
+          font-size: 14px;
+          font-style: italic;
+          padding-right: 15px;
+        }
+        .increase {
+          color: green;
+        }
+        .decrease {
+          color: red;
+        }
+        .increase-icon {
+          width: 10px;
+          height: 15px;
+          margin-right: 4px;
+        }
       }
     }
   }

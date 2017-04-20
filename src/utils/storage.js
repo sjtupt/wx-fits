@@ -17,29 +17,10 @@ export const getLocalDataByKey = key => {
   })
 }
 
-const buildWeightIncrease = value => delta => {
-  value.delta = delta
-  if (value.delta > 0) {
-    value.increase = 1
-  } else if (value.delta === 0) {
-    value.increase = 0
-  } else {
-    value.increase = -1
-  }
-}
-
 const setLocalDataWithCallback = key => value => data => resolve => reject => {
-  let result = [value]
-  if (data.length === 0) {
-    value.increase = 0
-    value.delta = 0
-  } else  {
-    buildWeightIncrease(value)(value.weight - data[0].weight)
-    result = result.concat(data)
-  }
   wx.setStorage({
     key:key,
-    data: result,
+    data: Object.assign({}, data, {[value.time]: value}),
     success: function(res) {
       resolve(res)
     },
