@@ -52,23 +52,23 @@ Page({
       }
       if (result.length > 0) {
         statData.push((result.reduce((sum, item) => sum+= parseFloat(item.weight), 0) / result.length).toFixed(1))
-        let statDataShow = []
-        if (statData.length === 1) {
-          statDataShow.push({key: '近一周', value: statData[0]})
-        } else if (statData.length === 2) {
-          statDataShow.push({key: '近一周', value: statData[0]})
-          statDataShow.push({key: '近半个月', value: statData[1]})
-        } else if (statData.length === 3) {
-          statDataShow.push({key: '近一周', value: statData[0]})
-          statDataShow.push({key: '近半个月', value: statData[1]})
-          statDataShow.push({key: '近一个月', value: statData[2]})
-        }
-
-        this.setData({
-          statDataShow: statDataShow
-        })
       }
     }
+    let statDataShow = []
+    if (statData.length === 1) {
+      statDataShow.push({key: '近一月', value: statData[0]})
+    } else if (statData.length === 2) {
+      statDataShow.push({key: '近半个月', value: statData[0]})
+      statDataShow.push({key: '近一个月', value: statData[1]})
+    } else if (statData.length === 3) {
+      statDataShow.push({key: '近一周', value: statData[0]})
+      statDataShow.push({key: '近半个月', value: statData[1]})
+      statDataShow.push({key: '近一个月', value: statData[2]})
+    }
+
+    this.setData({
+      statDataShow: statDataShow
+    })
     return statData
   },
   buildData(data) {
@@ -98,11 +98,13 @@ Page({
    */
   onShow () {
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
+      console.log('test', this.buildData(res))
       this.setData({
         weightData: this.buildData(res),
         statData: this.buildStatData(res)
       })
     }, err => {
+      console.log(this.data.weightData)
       console.log(err)
     })
   },
