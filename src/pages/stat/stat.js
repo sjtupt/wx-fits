@@ -16,9 +16,18 @@ Page({
     currentTimePeriodIndex: 0
   },
   changeTimePeriod(e) {
+    let currentClicked = e.currentTarget.dataset.index
+    if (this.data.currentTimePeriodIndex === currentClicked) {
+      return
+    }
+    TimePeriods[this.data.currentTimePeriodIndex].selected = false
+    TimePeriods[currentClicked].selected = true
+
     this.setData({
-      currentTimePeriodIndex: e.currentTarget.dataset.index
+      currentTimePeriodIndex: currentClicked,
+      timePeriods: TimePeriods
     })
+    this.updateData(this.data.statData)
   },
   touchHandler: function (e) {
     console.log(lineChart.getCurrentDataIndex(e));
@@ -69,6 +78,9 @@ Page({
   onShow() {
     let that = this
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
+      that.setData({
+        statData: res
+      })
       that.updateData(res)
     }, err => {
       console.log(err)
