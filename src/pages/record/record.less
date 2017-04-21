@@ -9,13 +9,16 @@
     padding-left: 22px;
   }
   .weight-wrap {
+    display: -webkit-flex; /* Safari */
     display: flex;
     flex-direction: row;
     height: 40px;
-    align-items: flex-end;
+    //align-items: flex-end;
     padding-left: 15px;
+    line-height: 40px;
     .weight-input {
       padding-left: 15px;
+      height: 40px;
     }
     .weight-placeholder {
       font-size: 14px;
@@ -25,16 +28,20 @@
       padding-left: 15px;
       font-size: 18px;
       color: #333;
+      align-self: flex-end;
     }
     .time-info {
       padding-left: 5px;
       font-size: 12px;
       color: #999;
+      align-self: flex-end;
     }
     .record-btn {
       flex-shrink: 0;
       margin-right: 15px;
       margin-left: 15px;
+      margin-top: 5px;
+      height: 30px;
     }
   }
 }

@@ -98,7 +98,6 @@ Page({
    */
   onShow () {
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
-      console.log('test', this.buildData(res))
       this.setData({
         weightData: this.buildData(res),
         statData: this.buildStatData(res)
