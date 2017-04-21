@@ -1,6 +1,9 @@
-<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<import src="../../component/emptyPage.wxml"/>
+
 <view class="container">
   <image style="width:{{homeHeaderBgWidth}}px;height:{{homeHeaderBgHeight}}px;" src="{{homeHeaderBg}}" mode="aspectFill"></image>
+
+  <template is="{{weightData.length > 0 ? 'nothing' : 'emptyPage'}}" data="{{gotoRecord: gotoRecord}}"/>
 
   <scroll-view
           scroll-y="true"

@@ -1,12 +1,20 @@
-<view class="container">
-  <view class="stat-header">
-    <view class="time-periods-wrap">
-      <block wx:key="{{timePeriods.key}}" wx:for="{{timePeriods}}" wx:for-index="idx" wx:for-item="timePeriod">
-        <text bindtap="changeTimePeriod" data-index="{{idx}}" class="time-period {{timePeriod.selected? 'selected': null}}">{{timePeriod.key}}</text>
-      </block>
-    </view>
-  </view>
-  <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+<import src="../../component/emptyPage.wxml"/>
 
-  <text class="footer">注: 统计的是每日的平均体重</text>
+<view class="container">
+  <view wx:if="{{isNoData}}">
+    <template is="emptyPage" data="{{gotoRecord: gotoRecord}}"/>
+  </view>
+  <view wx:else>
+    <view class="stat-header">
+      <view class="time-periods-wrap">
+        <block wx:key="{{timePeriods.key}}" wx:for="{{timePeriods}}" wx:for-index="idx" wx:for-item="timePeriod">
+          <text bindtap="changeTimePeriod" data-index="{{idx}}" class="time-period {{timePeriod.selected? 'selected': null}}">{{timePeriod.key}}</text>
+        </block>
+      </view>
+    </view>
+    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+
+    <text class="footer">注: 统计的是每日的平均体重</text>
+  </view>
+
 </view>

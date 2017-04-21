@@ -6,6 +6,7 @@ import * as Storage from '../../utils/storage'
 
 var app = getApp();
 var lineChart = null;
+var windowWidth = 320;
 
 const OneDay = 24 * 60 * 60 * 1000
 const TimePeriods = [{key: '一周内', selected: true, time: 7 * OneDay },{key: '两周内', selected: false, time: 15 * OneDay},{key: '一个月内', selected: false, time: 30 * OneDay}]
@@ -14,6 +15,11 @@ Page({
   data: {
     timePeriods: TimePeriods,
     currentTimePeriodIndex: 0
+  },
+  gotoRecord() {
+    wx.switchTab({
+      url: '/pages/record/record'
+    })
   },
   changeTimePeriod(e) {
     let currentClicked = e.currentTarget.dataset.index
@@ -70,19 +76,64 @@ Page({
         return parseFloat(val).toFixed(1) + 'kg';
       }
     }];
-    lineChart.updateData({
+    if (lineChart === null) {
+      this.getLineChart(data)
+    } else {
+      lineChart.updateData({
+        categories: this.getCategories(data),
+        series: series
+      });
+    }
+  },
+  getLineChart(data) {
+    return new wxCharts({
+      canvasId: 'lineCanvas',
+      type: 'line',
       categories: this.getCategories(data),
-      series: series
-    });
+      animation: true,
+      background: '#ffffff',
+      series: [{
+        name: '体重 (公斤)',
+        data: this.getData(data),
+        format: function (val, name) {
+          return parseFloat(val) + 'kg';
+        }
+      }],
+      xAxis: {
+        disableGrid: true
+      },
+      yAxis: {
+        title: '体重 (公斤)',
+        format: function (val) {
+          return val.toFixed(1);
+        },
+        min: 0,
+        max: 70
+      },
+      legend: false,
+      width: windowWidth,
+      height: 300,
+      dataLabel: false,
+      dataPointShape: true,
+      extra: {
+        lineStyle: 'curve'
+      }
+    })
   },
   onShow() {
     let that = this
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
+      console.log('success')
       that.setData({
-        statData: res
+        statData: res,
+        isNoData: false
       })
       that.updateData(res)
     }, err => {
+      that.setData({
+        isNoData: true
+      })
+      console.log('fail')
       console.log(err)
     })
   },
@@ -96,39 +147,7 @@ Page({
     }
 
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(data => {
-      lineChart = new wxCharts({
-        canvasId: 'lineCanvas',
-        type: 'line',
-        categories: this.getCategories(data),
-        animation: true,
-        background: '#ffffff',
-        series: [{
-          name: '体重 (公斤)',
-          data: this.getData(data),
-          format: function (val, name) {
-            return parseFloat(val) + 'kg';
-          }
-        }],
-        xAxis: {
-          disableGrid: true
-        },
-        yAxis: {
-          title: '体重 (公斤)',
-          format: function (val) {
-            return val.toFixed(1);
-          },
-          min: 0,
-          max: 70
-        },
-        legend:false,
-        width: windowWidth,
-        height: 300,
-        dataLabel: false,
-        dataPointShape: true,
-        extra: {
-          lineStyle: 'curve'
-        }
-      });
+      lineChart = this.getLineChart(data)
     }, err => {
       console.log(err)
     })

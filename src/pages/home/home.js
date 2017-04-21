@@ -31,6 +31,11 @@ Page({
     homeHeaderBgHeight: headerBgRatio * app.globalData.windowWidth,
     contentHeight: app.globalData.windowHeight - headerBgRatio * app.globalData.windowWidth,
   },
+  gotoRecord() {
+    wx.switchTab({
+      url: '/pages/record/record'
+    })
+  },
   buildData(data) {
     let keys = Object.keys(data).sort()
 

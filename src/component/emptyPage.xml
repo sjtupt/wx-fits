@@ -1,0 +1,11 @@
+<template name="emptyPage">
+    <view class="container-empty">
+
+        <text class="title">亲，您暂时还没有留下任何记录哦</text>
+        <text class="detail"> ╮(╯_╰)╭  </text>
+        <button size="mini" type="warn" plain="true" bindtap="gotoRecord" class="record-btn">赶紧去记一笔吧</button>
+    </view>
+</template>
+
+<template name="nothing">
+</template>
