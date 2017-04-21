@@ -1,30 +1,62 @@
 <import src="../../component/emptyPage.wxml"/>
 
 <view class="container">
-  <image style="width:{{homeHeaderBgWidth}}px;height:{{homeHeaderBgHeight}}px;" src="{{homeHeaderBg}}" mode="aspectFill"></image>
+  <view class="home-header" style="height: {{homeHeaderBgHeight}}px;">
+    <image class="home-header-bg" style="width:{{homeHeaderBgWidth}}px;height:{{homeHeaderBgHeight}}px;" src="{{homeHeaderBg}}" mode="aspectFill"></image>
+    <view class="home-header-content">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+      <view wx:if="{{weightData.length > 0}}" style="width: 100%">
+        <view wx:if="{{statData.length > 0}}" class="stat-wrap">
+          <view wx:if="{{statDataShow.length >= 2}}" class="stat-detail-wrap">
+            <view class="stat-one-wrap">
+              <text class="stat-title">{{statDataShow[0].key}}平均</text>
+              <text class="stat-weight">{{statDataShow[0].value}}kg</text>
+            </view>
+            <view class="vertical-line"></view>
+            <view class="stat-one-wrap">
+              <text class="stat-title">{{statDataShow[1].key}}平均</text>
+              <text class="stat-weight">{{statDataShow[2].value}}kg</text>
+            </view>
+          </view>
+          <view wx:else>
+            <view class="stat-title">{{statDataShow[0].key}}的平均体重<text class="stat-weight">{{statDataShow[0].value}}</text>kg</view>
+          </view>
+        </view>
+        <view wx:else>
+          <text class="no-data">近一个月内没有任何记录哦</text>
+        </view>
+      </view>
+      <view wx:else>
+        <text class="no-data">暂无任何记录哦</text>
+      </view>
 
-  <template is="{{weightData.length > 0 ? 'nothing' : 'emptyPage'}}" data="{{gotoRecord: gotoRecord}}"/>
+    </view>
+  </view>
 
-  <scroll-view
-          scroll-y="true"
-          class="content-wrap"
-          style="height: {{contentHeight}}px"
-          >
+  <view>
+    <template is="{{weightData.length > 0 ? 'nothing' : 'emptyPage'}}" data="{{gotoRecord: gotoRecord}}"/>
 
-    <view wx:key="{{weightRecord.day}}" wx:for="{{weightData}}" wx:for-index="idx" wx:for-item="weightRecord">
-      <view wx:key="{{idx}}">
-        <view class="record-day">{{weightRecord.day}}</view>
-        <view class="record" wx:key="{{weightInfo.time}}" wx:for="{{weightRecord.weightInfos}}" wx:for-index="idx" wx:for-item="weightInfo">
-          <view class="record-time" style="color: {{weightInfo.timeColor}}">{{weightInfo.timePeriodName}}</view>
-          <view class="record-weight">{{weightInfo.weight}} kg</view>
-          <view class="record-delta-wrap">
+    <scroll-view
+            scroll-y="true"
+            class="content-wrap"
+            style="height: {{contentHeight}}px;"
+    >
 
-            <image class="increase-icon" src="{{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? '../../resource/down.png': '../../resource/up.png')}}"></image>
-            <view class="record-delta {{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? 'decrease': 'increase')}}">{{weightInfo.delta}}</view>
+      <view wx:key="{{weightRecord.day}}" wx:for="{{weightData}}" wx:for-index="idx" wx:for-item="weightRecord">
+        <view wx:key="{{idx}}">
+          <view class="record-day">{{weightRecord.day}}</view>
+          <view class="record" wx:key="{{weightInfo.time}}" wx:for="{{weightRecord.weightInfos}}" wx:for-index="idx" wx:for-item="weightInfo">
+            <view class="record-time" style="color: {{weightInfo.timeColor}}">{{weightInfo.timePeriodName}}</view>
+            <view class="record-weight">{{weightInfo.weight}} kg</view>
+            <view class="record-delta-wrap">
+
+              <image class="increase-icon" src="{{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? '../../resource/down.png': '../../resource/up.png')}}"></image>
+              <view class="record-delta {{weightInfo.increase == 0? null: (weightInfo.increase == -1 ? 'decrease': 'increase')}}">{{weightInfo.delta}}</view>
+            </view>
           </view>
         </view>
       </view>
-    </view>
-  </scroll-view>
+    </scroll-view>
+  </view>
 
 </view>

@@ -36,6 +36,41 @@ Page({
       url: '/pages/record/record'
     })
   },
+  buildStatData(data) {
+    const timePeriod = [7 * util.oneDay, 15 * util.oneDay, 30 * util.oneDay]
+    let keys = Object.keys(data).sort()
+
+    let statData = []
+    for (let i = 0; i < timePeriod.length; i++) {
+      let result = []
+      for (let j = keys.length-1;j >= 0;j--) {
+        if ((new Date()).valueOf() - keys[j] <= timePeriod[i]) {
+          result.push(data[keys[j]])
+        } else {
+          break
+        }
+      }
+      if (result.length > 0) {
+        statData.push((result.reduce((sum, item) => sum+= parseFloat(item.weight), 0) / result.length).toFixed(1))
+        let statDataShow = []
+        if (statData.length === 1) {
+          statDataShow.push({key: '近一周', value: statData[0]})
+        } else if (statData.length === 2) {
+          statDataShow.push({key: '近一周', value: statData[0]})
+          statDataShow.push({key: '近半个月', value: statData[1]})
+        } else if (statData.length === 3) {
+          statDataShow.push({key: '近一周', value: statData[0]})
+          statDataShow.push({key: '近半个月', value: statData[1]})
+          statDataShow.push({key: '近一个月', value: statData[2]})
+        }
+
+        this.setData({
+          statDataShow: statDataShow
+        })
+      }
+    }
+    return statData
+  },
   buildData(data) {
     let keys = Object.keys(data).sort()
 
@@ -64,10 +99,19 @@ Page({
   onShow () {
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
       this.setData({
-        weightData: this.buildData(res)
+        weightData: this.buildData(res),
+        statData: this.buildStatData(res)
       })
     }, err => {
       console.log(err)
     })
+  },
+  onLoad() {
+    let that = this
+    app.getUserInfo(function (userInfo) {
+        that.setData({
+          userInfo: userInfo
+        })
+      })
   }
 })

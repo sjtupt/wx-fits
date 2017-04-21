@@ -123,7 +123,6 @@ Page({
   onShow() {
     let that = this
     Storage.getLocalDataByKey(Storage.kWeightInfo).then(res => {
-      console.log('success')
       that.setData({
         statData: res,
         isNoData: false
@@ -133,7 +132,6 @@ Page({
       that.setData({
         isNoData: true
       })
-      console.log('fail')
       console.log(err)
     })
   },
