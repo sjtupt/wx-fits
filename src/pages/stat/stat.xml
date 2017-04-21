@@ -7,4 +7,6 @@
     </view>
   </view>
   <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+
+  <text class="footer">注: 统计的是每日的平均体重</text>
 </view>

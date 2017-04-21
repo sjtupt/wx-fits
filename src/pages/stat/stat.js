@@ -32,22 +32,26 @@ Page({
     let keys = Object.keys(data).sort()
     let result = []
     for (let i = keys.length-1;i >= 0;i--) {
-      console.log((new Date()).valueOf(),parseInt(keys[i]),(new Date()).valueOf()-parseInt(keys[i]),TimePeriods[this.data.currentTimePeriodIndex].time)
       if ((new Date()).valueOf() - keys[i] <= TimePeriods[this.data.currentTimePeriodIndex].time) {
         result.push(data[keys[i]])
       } else {
         break
       }
     }
-    return result
+
+    // 每一天的合并取平均值
+    result = result.reduce((dic, item, index) => (dic[util.dateFormat(new Date(parseInt(item.time)), 'yyyy-MM-dd')] ? dic[util.dateFormat(new Date(parseInt(item.time)), 'yyyy-MM-dd')].push(item) : dic[util.dateFormat(new Date(parseInt(item.time)), 'yyyy-MM-dd')] = [item]) && dic, {})
+    let categories = Object.keys(result).reverse()
+    return {
+      key: categories.map(key => util.dateFormat(new Date(key), 'MM-dd')),
+      data: categories.map(key => ((result[key].reduce((sum,item, index) => sum += parseFloat(item.weight), 0))/result[key].length).toFixed(1))
+    }
   },
   getData(data) {
-    let newData = this.getDateWithinTimePeriod(data)
-    return Object.keys(newData).sort().map((key) => newData[key].weight)
+    return this.getDateWithinTimePeriod(data).data
   },
   getCategories(data){
-    let newData = this.getDateWithinTimePeriod(data)
-    return Object.keys(newData).sort().map((key) => util.dateFormat(new Date(parseInt(key)), 'MM-dd'))
+    return this.getDateWithinTimePeriod(data).key
   },
   updateData(data) {
     var series = [{
