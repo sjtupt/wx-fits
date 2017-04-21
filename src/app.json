@@ -18,17 +18,17 @@
     "color": "#ccc",
     "list": [{
       "pagePath": "pages/home/home",
-      "iconPath": "resource/home_more_icon.png",
+      "iconPath": "resource/home_more_icon_normal.png",
       "selectedIconPath": "resource/home_more_icon.png",
       "text": "首页"
     }, {
       "pagePath": "pages/record/record",
-      "iconPath": "resource/home_record_buttton~iphone.png",
+      "iconPath": "resource/home_record_buttton~iphone_normal.png",
       "selectedIconPath": "resource/home_record_buttton~iphone.png",
       "text": "记一记"
     }, {
       "pagePath": "pages/stat/stat",
-      "iconPath": "resource/btn_statistics~iphone.png",
+      "iconPath": "resource/btn_statistics~iphone_normal.png",
       "selectedIconPath": "resource/btn_statistics~iphone.png",
       "text": "统计"
     }]

@@ -5,9 +5,9 @@
     <image class="home-header-bg" style="width:{{homeHeaderBgWidth}}px;height:{{homeHeaderBgHeight}}px;" src="{{homeHeaderBg}}" mode="aspectFill"></image>
     <view class="home-header-content">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
-      <view wx:if="{{weightData.length > 0}}" style="width: 100%">
-        <view wx:if="{{statData.length > 0}}" class="stat-wrap">
-          <view wx:if="{{statDataShow.length >= 2}}" class="stat-detail-wrap">
+      <view hidden="{{weightData.length <= 0}}" style="width: 100%">
+        <view hidden="{{statData.length <= 0}}" class="stat-wrap">
+          <view hidden="{{statDataShow.length < 2}}" class="stat-detail-wrap">
             <view class="stat-one-wrap">
               <text class="stat-title">{{statDataShow[0].key}}平均</text>
               <text class="stat-weight">{{statDataShow[0].value}}kg</text>
@@ -18,18 +18,17 @@
               <text class="stat-weight">{{statDataShow[2].value}}kg</text>
             </view>
           </view>
-          <view wx:else>
+          <view hidden="{{statDataShow.length >=2 }}">
             <view class="stat-title">{{statDataShow[0].key}}的平均体重<text class="stat-weight">{{statDataShow[0].value}}</text>kg</view>
           </view>
         </view>
-        <view wx:else>
+        <view hidden="{{statData.length > 0}}">
           <text class="no-data">近一个月内没有任何记录哦</text>
         </view>
       </view>
-      <view wx:else>
+      <view hidden="{{weightData.length > 0}}">
         <text class="no-data">暂无任何记录哦</text>
       </view>
-
     </view>
   </view>
 
